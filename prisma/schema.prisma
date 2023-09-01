@@ -10,25 +10,71 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Cliente {
-  id    Int     @id @default(autoincrement())
-  nome String  @unique
-  email  String
-  senha String
+model User {
+  id String @id @default(uuid())
+  name String
+  email String
+  password String
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  @@map("users")
 }
 
-model Produto {
-  id    Int     @id @default(autoincrement())
-  nome String  @unique
-  quantidade  Int
-  preco String
+model Category{
+  id String @id @default(uuid())
+  name String
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  @@map("categories")
+  products Product[] // recebendo a tabela Product
 }
 
-model Contas {
-  id    Int     @id @default(autoincrement())
-  nome String  @unique
-  descricao  String
-  vencimento String
-  status  Boolean    @default(false)
-  valor Float
+model Product{
+  id String @id @default(uuid())
+  name String
+  price String
+  description String
+  banner String
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  @@map("products")
+  // relacionamento
+  category Category @relation(fields: [created_id], references: [id])
+  created_id String
+  items Item[]
 }
+
+model Order{
+  id String @id @default(uuid())
+  table Int
+  status Boolean @default(false)
+  draft Boolean @default(true)
+  name String @default("sem nome")
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  @@map("orders")
+  items Item[]
+
+}
+
+model Item{
+  id String @id @default(uuid())
+  amount Int
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  @@map("items")
+  order Order @relation(fields: [order_id], references: [id])
+  product Product @relation(fields: [product_id], references: [id])
+  order_id String
+  product_id String
+}
+
+// Update available 5.1.1 -> 5.2.0                        │
+// │  Run the following to update                            │
+// │    npm i --save-dev prisma@latest                       │
+// │    npm i @prisma/client@latest      

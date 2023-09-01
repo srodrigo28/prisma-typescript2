@@ -1,5 +1,14 @@
-# Aula backend Pizza
-* Aula 59
+# Projeto Full
+
+## BackEnd
+* NodeJS com Typescript
+* Banco Mysql
+* Aula 65
+* Horas :: 5hs
+* NodeVersion :: 
+``` Link do Treinamento
+https://www.udemy.com/course/dev-fullstack/learn/lecture/31683264#overview
+```
 ### Referências
 * https://prismadb.readthedocs.io/en/latest/data-types/
 * https://www.prisma.io/docs/concepts/components/prisma-schema/data-model
@@ -119,4 +128,26 @@ npm i @types/cors -D
         await prisma.$disconnect()
         process.exit(1)
     })
+```
+
+## Mobile
+* React Native Expo
+
+## FrontEnd Next ou React
+
+## Comandos Prisma cliente
+
+### Dependências Prisma
+* Prisma
+
+* Prisma Types
+
+* Depois de instalar as dependências
+```
+npx prisma init
+```
+
+* apos criar os campos no aquivo chema.prisma rodar o comando
+```
+npx prisma migrate dev
 ```
